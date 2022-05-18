@@ -1,13 +1,9 @@
 #include <bits/stdc++.h>
-#define Go ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
-#define all(x) x.begin(),x.end()
-#define file ifstream cin ("input.txt");ofstream cout("output.txt")
-#define vi vector<int>
 #define endl "\n"
-#define ret(x) {cout << x;return 0;}
 using namespace std;
 typedef long long ll;
-typedef vector<vector<vi>> matrix;
+template <class type>
+using matrix = vector<vector<vector<type>>>;
 
 //converts index i, j, k of 3D matrix of size n * m * p to 1D index
 //n can be removed from parameters as it is not used in the equation but kept for assertion
@@ -18,12 +14,13 @@ int convertIndex(int i, int j, int k,int n,int m,int p)
 }
 
 //creates a 3D matrix of size n * m * p and tests convertIndex function
+template <typename T>
 void testConvertIndex(int n,int m,int p)
 {
 	assert(n > 0 && m > 0 && p > 0);
 	cout << "\nTesting convertIndex function\n";
 	int start = -1;
-	matrix a(n, vector<vi>(m, vi(p)));
+    matrix<T> a(n, vector<vector<T>>(m, vector<T>(p)));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -39,12 +36,13 @@ void testConvertIndex(int n,int m,int p)
 }
 
 //converts 3D matrix of size n * m * p to 1D array of size q
-vi convertMatrix(matrix& mat)
+template <typename T>
+vector<T> convertMatrix(matrix<T>& mat)
 {
 	int n = mat.size();
 	int m = mat[0].size();
 	int p = mat[0][0].size();
-	vi arr(n * m * p);
+	vector<T> arr(n * m * p);
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -59,11 +57,12 @@ vi convertMatrix(matrix& mat)
 }
 
 //creates a 3D matrix of size n * m * p and tests convertMatrix function
+template <typename T>
 void testConvertMatrix(int n, int m, int p)
 {
 	assert(n > 0 && m > 0 && p > 0);
 	cout << "\nTesting convertMatrix\n";
-	matrix a(n, vector<vi>(m, vi(p)));
+	matrix<T> a(n, vector<vector<T>>(m, vector<T>(p)));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -74,7 +73,7 @@ void testConvertMatrix(int n, int m, int p)
 			}
 		}
 	}
-	vi arr = convertMatrix(a);
+	vector<T> arr = convertMatrix<T>(a);
 	int q = arr.size();
 	for (int i = 0; i < q; i++)
 	{
@@ -82,9 +81,12 @@ void testConvertMatrix(int n, int m, int p)
 		cout << arr[i] << endl;
 	}
 }
-
 int main()
 {
-	testConvertIndex(1,2, 5);
-	testConvertMatrix(3, 4, 5);
+    testConvertIndex<int>(1,2, 5);
+    testConvertIndex<char>(1,2, 5);
+    testConvertIndex<double>(1,2, 5);
+    testConvertMatrix<int>(3, 4, 5);
+    testConvertMatrix<char>(3, 4, 5);
+    testConvertMatrix<double>(3, 4, 5);
 }
